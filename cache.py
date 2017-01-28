@@ -43,6 +43,7 @@ def ssh_call(server, username, cmd_to_execute):
 				'stdout': stdout.read(),
 				'stderr': stderr.read()
 			}
+		line+= 1
 	ssh.close()
 	return res
 
