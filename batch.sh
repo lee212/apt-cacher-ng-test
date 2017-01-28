@@ -2,8 +2,8 @@
 #centos_1=(a,b)
 #centos_4=([a,b,c,d],[e,f,g,h])
 
-ubuntu_1=10.0.10.86
-ubuntu_1_n=10.0.10.87
+ubuntu_1=10.0.10.88
+ubuntu_1_n=10.0.10.89
 for i in $ubuntu_1
 do
 msg='Acquire::http::proxy \"http://10.0.10.72:3142\";'

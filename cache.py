@@ -33,7 +33,7 @@ def ssh_call(server, username, cmd_to_execute):
 
 	line = 0
 	for command in cmd_to_execute:
-		print "Executing {}".format( command )
+		#print "Executing {}".format( command )
 		command = "echo '%s' > ssh_cmd.sh;sudo sh ssh_cmd.sh"%command
 		start_time = time.time()
 		stdin , stdout, stderr = ssh.exec_command(command)
@@ -50,6 +50,7 @@ def multi_call(a_b_c):
 	return ssh_call(*a_b_c)
 
 def save_file(name, data):
+	name += ".stats" + "." + time.strftime("%Y%m%d-%H%M%S") + ".json"
 	with open(name, 'w') as f:
 		json.dump(data, f, indent=4, sort_keys=True)
 	
@@ -62,10 +63,10 @@ if __name__ == "__main__":
 		start_time = time.time()
 		ret = pool.map(multi_call, itertools.izip(servers, itertools.repeat(sys.argv[3]), itertools.repeat(cmds)))
 		end = time.time() - start_time
-		save_file(".".join(sys.argv[1:2]), ret)
-		print end
+		save_file(".".join(sys.argv[1:3]), ret)
+		#print end
 			
 	else:
 		res = ssh_call(sys.argv[2], sys.argv[3], cmds)
-		save_file(".".join(sys.argv[1:2]), res)
+		save_file(".".join(sys.argv[1:3]), res)
 
