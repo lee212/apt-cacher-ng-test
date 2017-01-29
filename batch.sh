@@ -3,15 +3,18 @@
 #centos_4=([a,b,c,d],[e,f,g,h])
 
 ubuntu_1=10.0.10.90
+ubuntu_4=10.0.10.94,10.0.10.92,10.0.10.99,10.0.10.93
 ubuntu_1_n=10.0.10.91
-for i in $ubuntu_1
+ubuntu_4_n=10.0.10.95,10.0.10.97,10.0.10.96,10.0.10.98
+
+for i in ${ubuntu_4//,/ }
 do
 msg='Acquire::http::proxy \"http://10.0.10.72:3142\";'
 ssh -o StrictHostKeyChecking=no ubuntu@$i "echo \"echo '"$msg"' > /etc/apt/apt.conf.d/02proxy\" > ssh_cmd.sh;sudo bash ssh_cmd.sh"
 python cache.py apt.install.from.docker $i ubuntu &
 done
 
-for i in $ubuntu_1_n
+for i in ${ubuntu_4_n//,/ }
 do
 python cache.py apt.install.from.docker $i ubuntu &
 done
